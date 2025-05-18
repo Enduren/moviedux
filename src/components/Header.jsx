@@ -13,3 +13,30 @@ const Header = () => {
 }
 
 export default Header;
+
+// //rfc react functional component
+// import React from 'react'
+
+// const Header = () => {
+//     return (
+//         <div>
+            
+//         </div>
+//     )
+// }
+
+// export default 
+
+// //asf async function
+// async function (arguments) {
+    
+// }
+
+// //async arrow function
+// async (params) => {
+    
+// }
+// //nfn named function
+// const name = (params) => {
+    
+// }
