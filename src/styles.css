@@ -12,6 +12,10 @@ body {
   background-color: #121212;
 }
 
+div#root{
+  margin-left: 50rem;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
