@@ -1,45 +1,115 @@
 import React from "react";
 import "../styles.css";
-import { useState ,useEffect} from "react";
-
-
-
+import { useState, useEffect } from "react";
+import MovieCard from "./MovieCard";
 
 const MoviesGrid = () => {
+  const genresDefault = "All Genres";
+  const ratingDefault = "All";
+  const listGenres = [genresDefault, "Action", "Fantasy", "Horror", "Drama"];
+  const listRatings = [ratingDefault, "Good", "Ok", "Bad"];
 
-    const[movies,setMovies]= useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [genre, setGenre] = useState(genresDefault);
+  const [rating, setRating] = useState(ratingDefault);
 
+  useEffect(() => {
+    fetch("movies.json")
+      .then((resp) => resp.json())
+      .then((data) => setMovies(data));
+  }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-    useEffect(()=>{
-       fetch("movies.json")
-       .then(response => response.json())
-       .then(data => setMovies(data))
-        
-    },[])
+  const handleGenreChange = (e) => {
+    setGenre(e.target.value);
+  };
 
+  const handleRatingChange = (e) => {
+    setRating(e.target.value);
+  };
 
-
+  const matchesGenre = (movie, genre) => {
     return (
+      genre === genresDefault ||
+      movie.genre.toLowerCase() === genre.toLowerCase()
+    );
+  };
 
-        <div className="movies-grid">
-            {
-                movies.map(movie =>(
+  const matchesSearchTerm = (movie, searchTerm) => {
+    return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+  };
 
-                        <div key={movie.id} className="movie-card">
-                            <img src={`images/${movie.image}`} alt={movie.title} />
-                            <div className="movie-card-info">
-                                <h3 className="movie-card-title">{movie.title}</h3>
-                                <p className="movie-card-genre">{movie.genre}</p>
-                                <p className="movie-card-rating">{movie.rating}</p>
-                            </div>
+  const matchesRating = (movie, rating) => {
+    switch (rating) {
+      case ratingDefault:
+        console.log("rating Default");
+        return true;
+      case "Good":
+        console.log("Good");
+        return movie.rating >= 8;
+      case "Ok":
+        return movie.rating >= 5 && movie.rating < 8;
+      case "Bad":
+        return movie.rating < 5;
+      default:
+        return false;
+    }
+  };
 
+  const filteredMovies = movies.filter(
+    (movie) =>
+      matchesGenre(movie, genre) &&
+      matchesRating(movie, rating) &&
+      matchesSearchTerm(movie, searchTerm)
+  );
 
-                        </div>
-                ))
-            }
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search movies..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
+      <div className="filter-bar">
+        <div className="filter-slot">
+          <label>Genre</label>
+          <select
+            value={genre}
+            onChange={handleGenreChange}
+            className="filter-dropdown"
+          >
+            {listGenres.map((genre, i) => (
+              <option key={i}>{genre}</option>
+            ))}
+          </select>
         </div>
-    )
-}
+        <div className="filter-slot">
+          <label>Rating</label>
+          <select
+            value={rating}
+            onChange={handleRatingChange}
+            className="filter-dropdown"
+          >
+            {listRatings.map((rating, i) => (
+              <option key={i}>{rating}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="movies-grid">
+        {filteredMovies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default MoviesGrid;
