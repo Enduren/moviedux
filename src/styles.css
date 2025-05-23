@@ -10,10 +10,18 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #fff;
   background-color: #121212;
+  border: 2px solid white;
 }
 
 div#root{
   margin-left: 30rem;
+  border: 2px solid white;
+  border-radius: 8px;
+  min-width: 50%;
+  max-width: 100%;
+  padding-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .container {
@@ -259,4 +267,13 @@ input:checked + .slider:before {
 
 input:checked + .slider {
   background-color: #FFA100;
+}
+
+
+@media (width <= 899px) {
+
+  div#root{
+    margin:0;
+    padding: 20px;
+  }
 }
