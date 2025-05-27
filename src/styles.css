@@ -41,6 +41,7 @@ div#root{
   font-size: 16px;
   border-radius: 100px;
   border: 1px solid #ccc;
+  
 }
 
 /* Genre and Filter Bar Styles */
@@ -60,8 +61,8 @@ div#root{
   padding: 8px;
   margin: 10px;
   border-radius: 5px;
-  background-color: #fff;
-  color: #333;
+  background-color: #454545;
+  color: #ffffff;
 }
 
 /* Movies Grid Styles */
