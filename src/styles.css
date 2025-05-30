@@ -10,12 +10,12 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #fff;
   background-color: #121212;
-  border: 2px solid white;
+  border: 2px solid rgb(152, 150, 150);
 }
 
 div#root{
   margin-left: 30rem;
-  border: 2px solid white;
+  border: 2px solid rgb(184, 184, 184);
   border-radius: 8px;
   min-width: 50%;
   max-width: 100%;
